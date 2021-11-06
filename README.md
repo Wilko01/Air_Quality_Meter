@@ -1,16 +1,23 @@
 # Air_Quality_Meter
-An SDS010  is connected to an ESP32-WROOM-32D which is reporting into Home Assistant.
+By using a 3D printer in house it is important to understand the health impact like micro particles which are generated in the build process of the 3D printer. The SDS010 is used to measure the air quality.
 
 ## Description and operation instructions
-The SDS010 monitors the airquality by neasuring the 2.5 and 10 um particles in the air. The SDS010 has a lifetime of 8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32D is configured via the ESPHome plugin in Home Assistant.
+The SDS010 monitors the airquality by neasuring the 2.5 and 10 um particles in the air. The SDS010 has a lifetime of 8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32D is configured via the ESPHome plugin in Home Assistant. 
 
  ## Technical description
-The ESP32-WROOM-32D will forward the measurements to Home Assistant.
+The SDS010 is connected to the ESP32-WROOM-32D
+
+| SDS101  | ESP32      |
+| --------|------------|
+| TX      | rx_pin: 16 |
+| RX      | tx_pin: 17 |
+
+
 
 ### Parts
 1 x ESP32-WROOM-32D
 
-<img src="Images/ESP32-WROOM-32D.jpg" alt="drawing" width="500"/>
+<img src="Images/ESP32-WROOM-32D.jpg" alt="drawing" width="150"/>
 
 1 x SDS010
 
@@ -18,11 +25,6 @@ The ESP32-WROOM-32D will forward the measurements to Home Assistant.
 
 ### Schematic overview
 <img src="Images/Schematic_overview.jpg" alt="drawing" width="500"/>
- 
-- Connect the SDS010 to the 
-
-•	Connect the relay contact to the GND of the ESP32-WROOM-32D and the other side to D5.
-
 
 ### ESPHome installation
 See the instructions https://github.com/Wilko01/ESPHome  (not listed here)
@@ -73,14 +75,12 @@ sensor:
     update_interval: 10min
 ```
 
-
-
 ### Interface
 #### Home Assistant
 Home Assistant is connected via the ESPHome integration.
 
 ### Testing
-..
+Create a dashboard in Home Assistant and see the measurements come in. Depending on the measurement interval this can take some time.
 
 ### Information
 - [Rules syntax](https://esphome.io)
