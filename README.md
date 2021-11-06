@@ -79,6 +79,9 @@ sensor:
 ### Interface
 #### Home Assistant
 Home Assistant is connected via the ESPHome integration. The hazardous values for the 2.5um are different from the values of the 10.0um. Therefore two cards are made in the dashboard.
+
+<img src="Images/Dashboard 2.5 and 10.0um.jpg" alt="drawing" width="500"/>
+
 ##### 2.5um card
 Create a card in the dashboard of Home Assistant with this code for the 2.5um measurement:
 ```
