@@ -1,0 +1,105 @@
+# Defining an SDS011 Air Quality Sensor in ESPHome
+esphome:
+  name: esp17
+  platform: ESP32
+  board: esp32doit-devkit-v1
+  on_boot:
+    priority: -100 #lowest priority so start last
+    then:
+      - lambda: id(display01).turn_off();
+#End first code block
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "4764505ce89048d2422149c83dbc51ca"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp17 Fallback Hotspot"
+    password: "kWzangCTxyzK"
+
+captive_portal:
+
+# Defining the UART for the SDS011
+uart:
+  rx_pin: 16
+  tx_pin: 17
+  baud_rate: 9600
+
+sensor:
+  - platform: sds011
+    pm_2_5:
+      name: "Particulates <2.5µm Concentration"
+      id: pm2_5
+    pm_10_0:
+      name: "Particulates <10.0µm Concentration"
+      id: pm10_0
+    # Set the update interval to balance the accuracy and sensor life
+    update_interval: 1min
+
+#specify the connection to the SSD1306
+#Connect to the GND and 3,3 but better to 5V
+i2c:
+  sda: 18
+  scl: 19
+  scan: true #Will display the i2C address
+
+font:
+  - file: 'arial.ttf' #this font file needs to be uploaded to the Home Assistant folder /config/esphome
+    id: font1
+    size: 14
+    
+  - file: 'BebasNeue-Regular.ttf'
+    id: font2
+    size: 14
+    
+  - file: 'slkscr.ttf'
+    id: font3
+    size: 14
+
+esp32_touch:
+  setup_mode: false #true shows debug messages in the log and enables to see the intensity of the touch action. 
+                   #Make sure to set to false once setup to limit the log spam
+
+binary_sensor:
+  - platform: esp32_touch
+    name: "ESP32 Touch Pad GPIO27"
+    pin: GPIO27
+    threshold: 400
+    on_release:
+      - lambda: id(display01).turn_on();
+      - delay: 60s
+      - lambda: id(display01).turn_off();
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    id: display01
+    reset_pin: 0
+    address: 0x3C
+    contrast: 60%
+#Make sure that any comment in the lambda code block is started with // as all
+#  code in the block is C++.
+    lambda: |-
+      it.printf(0, 0, id(font1), "Air Quality");
+      if (id(pm2_5).has_state()) {
+        it.printf(0, 18, id(font1), "PM2.5 = %.1f", id(pm2_5).state);
+      }
+      if (id(pm10_0).has_state()) {
+        it.printf(0, 36, id(font1), "PM10 = %.1f", id(pm10_0).state);
+      }
+
+#end code
+
+
+
+

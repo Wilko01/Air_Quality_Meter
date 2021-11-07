@@ -1,11 +1,11 @@
 # Air_Quality_Meter
-By using a 3D printer in house it is important to understand the health impact like micro particles which are generated in the build process of the products that the 3D printer makes. The SDS010 is used to measure the air quality.
+By using a 3D printer in house it is important to understand the health impact like micro particles which are generated in the build process of the products that the 3D printer makes. The SDS011 is used to measure the air quality.
 
 ## Description and operation instructions
-The SDS010 monitors the air quality by neasuring the 2.5 and 10 um particles in the air. The SDS010 has a lifetime of 8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32D is configured via the ESPHome plugin in Home Assistant. 
+The SDS011 monitors the air quality by neasuring the 2.5 and 10 um particles in the air. The SDS011 has a lifetime of 8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32D is configured via the ESPHome plugin in Home Assistant. 
 
  ## Technical description
-The SDS010 is connected to the ESP32-WROOM-32D
+The SDS011 is connected to the ESP32-WROOM-32D
 
 | SDS101  | ESP32      |
 | --------|------------|
@@ -20,9 +20,9 @@ The SDS010 is connected to the ESP32-WROOM-32D
 
 <img src="Images/ESP32-WROOM-32D.jpg" alt="drawing" width="150"/>
 
-1 x SDS010
+1 x SDS011
 
-<img src="Images/SDS010.jpg" alt="drawing" width="500"/>
+<img src="Images/SDS011.jpg" alt="drawing" width="500"/>
 
 ### Schematic overview
 <img src="Images/Schematic_overview.jpg" alt="drawing" width="500"/>
@@ -39,6 +39,11 @@ esphome:
   name: esp17
   platform: ESP32
   board: esp32doit-devkit-v1
+  on_boot:
+    priority: -100 #lowest priority so start last
+    then:
+      - lambda: id(display01).turn_off();
+#End first code block
 
 # Enable logging
 logger:
@@ -60,7 +65,7 @@ wifi:
 
 captive_portal:
 
-# Defining the UART
+# Defining the UART for the SDS011
 uart:
   rx_pin: 16
   tx_pin: 17
@@ -70,10 +75,67 @@ sensor:
   - platform: sds011
     pm_2_5:
       name: "Particulates <2.5µm Concentration"
+      id: pm2_5
     pm_10_0:
       name: "Particulates <10.0µm Concentration"
+      id: pm10_0
     # Set the update interval to balance the accuracy and sensor life
     update_interval: 10min
+
+#specify the connection to the SSD1306
+#Connect to the GND and 3,3 but better to 5V
+i2c:
+  sda: 18
+  scl: 19
+  scan: true #Will display the i2C address
+
+font:
+  - file: 'arial.ttf' #this font file needs to be uploaded to the Home Assistant folder /config/esphome
+    id: font1
+    size: 14
+    
+  - file: 'BebasNeue-Regular.ttf'
+    id: font2
+    size: 14
+    
+  - file: 'slkscr.ttf'
+    id: font3
+    size: 14
+
+esp32_touch:
+  setup_mode: false #true shows debug messages in the log and enables to see the intensity of the touch action. 
+                   #Make sure to set to false once setup to limit the log spam
+
+binary_sensor:
+  - platform: esp32_touch
+    name: "ESP32 Touch Pad GPIO27"
+    pin: GPIO27
+    threshold: 400
+    on_release:
+      - lambda: id(display01).turn_on();
+      - delay: 60s
+      - lambda: id(display01).turn_off();
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    id: display01
+    reset_pin: 0
+    address: 0x3C
+    contrast: 60%
+#Make sure that any comment in the lambda code block is started with // as all
+#  code in the block is C++.
+    lambda: |-
+      it.printf(0, 0, id(font1), "Air Quality");
+      if (id(pm2_5).has_state()) {
+        it.printf(0, 18, id(font1), "PM2.5 = %.1f", id(pm2_5).state);
+      }
+      if (id(pm10_0).has_state()) {
+        it.printf(0, 36, id(font1), "PM10 = %.1f", id(pm10_0).state);
+      }
+
+#end code
+
 ```
 
 ### Interface
@@ -187,6 +249,7 @@ Create a dashboard in Home Assistant and see the measurements come in. Depending
 ### Information
 - [Rules syntax](https://esphome.io)
 - [Air quality sensor with ESPHome](https://cyan-automation.medium.com/creating-an-air-quality-sensor-using-an-sds011-and-esphome-7305f764f6f5)
+- [ESPHome syntax for writing text in the yaml file to be printed on a LCD](https://esphome.io/components/display/index.html#display-printf)
 
 Generic
 - [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
