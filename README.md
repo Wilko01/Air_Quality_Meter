@@ -7,12 +7,14 @@ The SDS011 monitors the air quality by neasuring the 2.5 and 10 um particles in 
  ## Technical description
 The SDS011 is connected to the ESP32-WROOM-32D
 
-| SDS101  | ESP32      |
-| --------|------------|
-| TX      | rx_pin: 16 |
-| RX      | tx_pin: 17 |
-| GND     | GND        |
-| 5V      | 5V         |
+| SDS101  | ESP32      | SDS1306   |
+| --------|------------|-----------|
+| TX      | rx_pin: 16 |           |
+| RX      | tx_pin: 17 |           |
+| GND     | GND        | GND       |
+| 5V      | 5V         | 5V        |
+|         | 18         | SDA       |
+|         | 19         | SCL       |
 
 
 ### Parts
