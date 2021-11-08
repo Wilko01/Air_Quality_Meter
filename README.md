@@ -285,7 +285,7 @@ Create a dashboard in Home Assistant and see the measurements come in. Depending
 
 ## 3D printer files
 It all started by measuring the air quality when printing, so the 3D printer files must be included in this project:
-- [Sketchup make file containing the design](/3D_Printer_Files)
+- [3D files include the Sketchup make file as well as the 3D print files .STL](/3D_Printer_Files)
 
 
 
