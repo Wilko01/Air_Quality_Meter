@@ -2,7 +2,7 @@
 By using a 3D printer in house it is important to understand the health impact like micro particles which are generated in the build process of the products that the 3D printer makes. The SDS011 is used to measure the air quality.
 
 ## Description and operation instructions
-The SDS011 monitors the air quality by neasuring the 2.5 and 10 um particles in the air. The SDS011 has a lifetime of 8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32D is configured via the ESPHome plugin in Home Assistant. 
+The SDS011 monitors the air quality by neasuring the 2.5 and 10 um particles in the air. The SDS011 has a lifetime of ~8000 hours, hence the measurement is reduced to periodic measurements. In this case every 10 minutes. The ESP32-WROOM-32U is configured via the ESPHome plugin in Home Assistant. All components are powered via de micro USB connector of the ESP32-WROOM-32U.
 
  ## Technical description
 The SDS011 is connected to the ESP32-WROOM-32D
@@ -19,9 +19,13 @@ The SDS011 is connected to the ESP32-WROOM-32D
 
 
 ### Parts
-1 x ESP32-WROOM-32D
+1 x ESP32-WROOM-32U
 
-<img src="Images/ESP32-WROOM-32D.jpg" alt="drawing" width="150"/>
+<img src="Images/ESP32-WROOM-32U.jpg" alt="drawing" width="150"/>
+
+1 x 2.4GHz antenna
+
+<img src="Images/2.4GHz_Antenna.jpg" alt="drawing" width="150"/>
 
 1 x SDS011
 
@@ -37,6 +41,7 @@ The SDS011 is connected to the ESP32-WROOM-32D
 
 - 4 x Screws 2.6 x 20 mm
 - 1 x thumbtack
+- 1 x Micro USB connector
 
 
 ### Schematic overview
