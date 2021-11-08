@@ -275,7 +275,7 @@ Create a flow to alert when the quality of the air is not in the green area anym
 Create a dashboard in Home Assistant and see the measurements come in. Depending on the measurement interval this can take some time.
 
 ### Information
-- [Rules syntax](https://esphome.io)
+- [ESPHome syntax](https://esphome.io)
 - [Air quality sensor with ESPHome](https://cyan-automation.medium.com/creating-an-air-quality-sensor-using-an-sds011-and-esphome-7305f764f6f5)
 - [ESPHome syntax for writing text in the yaml file to be printed on a LCD](https://esphome.io/components/display/index.html#display-printf)
 
