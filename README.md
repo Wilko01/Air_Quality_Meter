@@ -19,23 +19,23 @@ The SDS011 is connected to the ESP32-WROOM-32D
 
 
 ### Parts
-1 x ESP32-WROOM-32U
+- 1 x ESP32-WROOM-32U
 
 <img src="Images/ESP32-WROOM-32U.jpg" alt="drawing" width="150"/>
 
-1 x 2.4GHz antenna
+- 1 x 2.4GHz antenna
 
 <img src="Images/2.4GHz_Antenna.jpg" alt="drawing" width="150"/>
 
-1 x SDS011
+- 1 x SDS011
 
 <img src="Images/SDS011.jpg" alt="drawing" width="500"/>
 
-1 x SSD1306 i2C
+- 1 x SSD1306 i2C
 
 <img src="Images/SSD1306.jpg" alt="drawing" width="150"/>
 
-1 x DHT11
+- 1 x DHT11
 
 <img src="Images/DHT11.jpg" alt="drawing" width="150"/>
 
