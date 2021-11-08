@@ -76,13 +76,24 @@ uart:
 sensor:
   - platform: sds011
     pm_2_5:
-      name: "Particulates <2.5µm Concentration"
+      name: "ESP17_Particulates_<2.5µm_Concentration"
       id: pm2_5
     pm_10_0:
-      name: "Particulates <10.0µm Concentration"
+      name: "ESP17_Particulates_<10.0µm_Concentration"
       id: pm10_0
     # Set the update interval to balance the accuracy and sensor life
     update_interval: 10min
+
+# Define the temperature and humidity sensor
+  - platform: dht
+    pin: 21
+    temperature:
+      name: "ESP17_Temperature"
+      id: ESP17_Temperature
+    humidity:
+      name: "ESP17_Humidity"
+      id: ESP17_Humidity
+    update_interval: 60s
 
 #specify the connection to the SSD1306
 #Connect to the GND and 3,3 but better to 5V
@@ -94,15 +105,15 @@ i2c:
 font:
   - file: 'arial.ttf' #this font file needs to be uploaded to the Home Assistant folder /config/esphome
     id: font1
-    size: 14
+    size: 10
     
-  - file: 'BebasNeue-Regular.ttf'
+  - file: 'arial.ttf'
     id: font2
-    size: 14
+    size: 12
     
   - file: 'slkscr.ttf'
     id: font3
-    size: 14
+    size: 12
 
 esp32_touch:
   setup_mode: false #true shows debug messages in the log and enables to see the intensity of the touch action. 
@@ -110,7 +121,7 @@ esp32_touch:
 
 binary_sensor:
   - platform: esp32_touch
-    name: "ESP32 Touch Pad GPIO27"
+    name: "ESP17_Touch_Sensor"
     pin: GPIO27
     threshold: 400
     on_release:
@@ -124,18 +135,24 @@ display:
     id: display01
     reset_pin: 0
     address: 0x3C
-    contrast: 60%
+    contrast: 100%
 #Make sure that any comment in the lambda code block is started with // as all
 #  code in the block is C++.
     lambda: |-
-      it.printf(0, 0, id(font1), "Air Quality");
+      it.printf(5, 0, id(font1), "Air Quality");
       if (id(pm2_5).has_state()) {
-        it.printf(0, 18, id(font1), "PM2.5 = %.1f", id(pm2_5).state);
+        it.printf(5, 12, id(font2), "PM2.5 = %.1f", id(pm2_5).state);
       }
       if (id(pm10_0).has_state()) {
-        it.printf(0, 36, id(font1), "PM10 = %.1f", id(pm10_0).state);
+        it.printf(5, 25, id(font2), "PM10 = %.1f", id(pm10_0).state);
       }
-
+      if (id(ESP17_Temperature).has_state()) {
+        it.printf(5, 38, id(font2), "Temp = %.1f C", id(ESP17_Temperature).state);
+      }
+      if (id(ESP17_Humidity).has_state()) {
+        it.printf(5, 51, id(font2), "Humidity = %.0f%%", id(ESP17_Humidity).state);
+      }
+#Print the text at column 64 and row 31
 #end code
 
 ```
