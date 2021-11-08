@@ -35,6 +35,10 @@ The SDS011 is connected to the ESP32-WROOM-32D
 
 <img src="Images/DHT11.jpg" alt="drawing" width="150"/>
 
+- 4 x Screws 2.6 x 20 mm
+- 1 x thumbtack
+
+
 ### Schematic overview
 <img src="Images/Schematic_overview.jpg" alt="drawing" width="500"/>
 
