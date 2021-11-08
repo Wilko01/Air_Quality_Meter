@@ -283,6 +283,12 @@ Create a flow to alert when the quality of the air is not in the green area anym
 ### Testing
 Create a dashboard in Home Assistant and see the measurements come in. Depending on the measurement interval this can take some time.
 
+## 3D printer files
+It all started by measuring the air quality when printing, so the 3D printer files must be included in this project:
+[Sketchup make file containing the design](3D_Printer_Files/Air quality SDS011 box.skp)
+
+
+
 ### Information
 - [ESPHome syntax](https://esphome.io)
 - [Air quality sensor with ESPHome](https://cyan-automation.medium.com/creating-an-air-quality-sensor-using-an-sds011-and-esphome-7305f764f6f5)
