@@ -2,9 +2,9 @@
 By using a 3D printer in house it is important to understand the health impact like micro particles which are generated in the build process of the products that the 3D printer makes. The SDS011 is used to measure the air quality.
 
 
-<img src="Images/Air_quality_meter01.jpg" alt="drawing" width="300"/>
+<img src="Images/Air_quality_meter01.jpg" alt="drawing" width="700"/>
 
-<img src="Images/Air_quality_meter08.jpg" alt="drawing" width="300"/>
+<img src="Images/Air_quality_meter08.jpg" alt="drawing" width="700"/>
 
 
 ## Description and operation instructions
