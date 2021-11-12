@@ -59,7 +59,7 @@ See the instructions https://github.com/Wilko01/ESPHome  (not listed here)
 
 
 ### ESPHome Configuration in Home Assistant
-Create a new device  with these settings
+Create a new device  with this code:
 ```
 # Defining an SDS011 Air Quality Sensor in ESPHome
 esphome:
